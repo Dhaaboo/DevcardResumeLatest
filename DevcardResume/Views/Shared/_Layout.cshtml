@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	
+	<title>@ViewData["Title"] - DHDevelop</title>
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="DevCard Bootstrap 5 Template">
+	<meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
+	<link rel="shortcut icon" href="favicon.ico"> 
+
+	<!-- Google Fonts -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" media="all" />
+	<!-- FontAwesome JS -->
+	<script defer src="~/lib/font-awesome/js/all.js"></script>
+	<!-- Plugin CSS -->
+	<link rel="stylesheet" href="~/lib/tiny-slider/dist/tiny-slider.css" />
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" type="text/css" media="all" />
+	<!-- Theme CSS -->
+	<link id="theme-style" rel="stylesheet" href="~/css/theme-1.css" type="text/css" media="all" asp-append-version="true" />
+
+	@* <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/DevCardResumeCore.styles.css" asp-append-version="true" /> *@
+
+</head>
+<body>
+
+	<!-- Start Header STYLE -->
+	@await Component.InvokeAsync("_Header")
+	<!-- End Header STYLE -->
+
+	 <!-- Start main-wrapper-->
+	<div class="main-wrapper">
+		@RenderBody()
+		<hr />
+		<!-- Start Footer STYLE -->
+		@* @await Component.InvokeAsync("_Footer") *@
+		<!-- End Footer STYLE -->
+	</div>
+	<!-- End main-wrapper-->
+	<!-- Javascript -->
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/popper/dist/umd/popper.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="~/lib/tiny-slider/dist/tiny-slider.js"></script>
+	<script src="~/js/testimonials.js"></script>
+
+	<!-- Style Switcher -->
+	<script src="~/js/style-switcher.js"></script>
+
+	<!-- Back To Top -->
+	<script src="~/lib/vanilla-back-to-top/dist/vanilla-back-to-top.min.js"></script>
+
+	<!-- Dark Mode -->
+	<script src="~/lib/js-cookie/dist/js.cookie.js"></script>
+	<script src="~/js/dark-mode.js"></script>
+	<!-- Custom JS -->
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
