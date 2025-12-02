@@ -10,7 +10,11 @@ namespace DevcardResume.Controllers
         {
             return View();
         }
-
+        [HttpGet]   
+        public IActionResult Resume()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
