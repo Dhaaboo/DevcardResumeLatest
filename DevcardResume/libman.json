@@ -22,7 +22,7 @@
       ]
     },
     {
-      "library": "jquery@3.7.1",
+      "library": "jquery@4.0.0",
       "destination": "wwwroot/lib/jquery/",
       "files": [
         "dist/jquery.js",
@@ -36,7 +36,7 @@
     },
     {
       "provider": "unpkg",
-      "library": "jquery-validation@1.21.0",
+      "library": "jquery-validation@1.22.0",
       "destination": "wwwroot/lib/jquery-validation/",
       "files": [
         "dist/jquery.validate.min.js",
@@ -58,7 +58,7 @@
     },
     {
       "provider": "unpkg",
-      "library": "@fortawesome/fontawesome-free@7.1.0",
+      "library": "@fortawesome/fontawesome-free@7.2.0",
       "destination": "wwwroot/lib/fontawesome/",
       "files": [
         "css/all.css",

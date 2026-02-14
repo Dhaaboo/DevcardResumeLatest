@@ -15,7 +15,11 @@ _Srvc.AddDatabaseDeveloperPageExceptionFilter();
 _Srvc.AddDefaultIdentity<DevResumeUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<APPDBC>();
 _Srvc.AddControllersWithViews();
-
+// _Srvc.AddHttpsRedirection(options =>
+// {
+//    // options.RedirectStatusCode = Status307TemporaryRedirect;
+//     options.HttpsPort = 5051;
+// });
 var app = _blder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,6 +27,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseStatusCodePagesWithReExecute("/Error/{0}");
     app.UseMigrationsEndPoint();
+    // app.UseHsts();
 }
 else
 {
