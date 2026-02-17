@@ -1,5 +1,7 @@
 using DevcardResume.Data;
 using DevcardResume.Data.Models;
+using DevcardResume.Data.Repo;
+using DevcardResume.Data.Security;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +22,9 @@ _Srvc.AddControllersWithViews();
 //    // options.RedirectStatusCode = Status307TemporaryRedirect;
 //     options.HttpsPort = 5051;
 // });
+_Srvc.AddDataProtection();
+_Srvc.AddSingleton<PeopleDataPro>();
+_Srvc.AddScoped<IPerRepo, PerRepo>();
 var app = _blder.Build();
 
 // Configure the HTTP request pipeline.

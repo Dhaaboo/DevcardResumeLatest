@@ -1,46 +1,66 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DevcardResume.Data;
+using DevcardResume.Data.Models;
+using DevcardResume.Data.Repo;
+using DevcardResume.Data.Security;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DevcardResume.Data;
-using DevcardResume.Data.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DevcardResume.Controllers
 {
     public class PeopleController : Controller
     {
         private readonly APPDBC _dbs;
+        private readonly IDataProtector _dbPro;
+        private readonly IPerRepo _Repo;
 
-        public PeopleController(APPDBC db)
+        public PeopleController(APPDBC db, IDataProtectionProvider provider, PeopleDataPro _dtPro, IPerRepo Repo)
         {
             _dbs = db;
+            _Repo = Repo;
+            _dbPro = provider.CreateProtector(_dtPro.PeopleInfo);
         }
 
         // GET: People
         public async Task<IActionResult> Index()
         {
-            return View(await _dbs._Peoples.ToListAsync());
+            return View(await _Repo.GetPersonAsync());
+            //return View(await _dbs._Peoples.ToListAsync());
         }
 
         // GET: People/Details/5
-        public async Task<IActionResult> Details(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Details(string? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
+                if (id == string.Empty)
+                {
+                    Response.StatusCode = 404;
+                    return View("NotFound", id);
+                }
 
-            var people = await _dbs._Peoples
-                .FirstOrDefaultAsync(m => m.PID == id);
-            if (people == null)
+                var _Pl = await _dbs._Peoples.FirstOrDefaultAsync(m => m.PID  == Convert.ToInt32(_dbPro.Unprotect( id)));
+                if (_Pl == null)
+                {
+                    Response.StatusCode = 404;
+                    return View("NotFound", id);
+                }
+                return View(_Pl);
+            }
+            catch(Exception ex)
             {
-                return NotFound();
+                return NotFound(); //+ ex.ToString();
             }
-
-            return View(people);
         }
 
         // GET: People/Create
@@ -66,19 +86,23 @@ namespace DevcardResume.Controllers
         }
 
         // GET: People/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Edit(String? id)
         {
             if (id == null)
             {
-                return NotFound();
+                Response.StatusCode = 404;
+                return View("NotFound", id);
             }
-
-            var people = await _dbs._Peoples.FindAsync(id);
-            if (people == null)
+            int _decpid = Convert.ToInt32(_dbPro.Unprotect(id));
+            var _Pr = await _dbs._Peoples.FirstOrDefaultAsync(m => m.PID == _decpid);
+            //var people = await _dbs._Peoples.FindAsync(id);
+            if (_Pr == null)
             {
-                return NotFound();
+                Response.StatusCode = 404;
+                return View("NotFound", _decpid);
             }
-            return View(people);
+            return View(_Pr);
         }
 
         // POST: People/Edit/5
@@ -117,21 +141,25 @@ namespace DevcardResume.Controllers
         }
 
         // GET: People/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Delete(String? id)
         {
             if (id == null)
             {
-                return NotFound();
+                Response.StatusCode = 404;
+                return View("NotFound", id);
             }
 
-            var people = await _dbs._Peoples
-                .FirstOrDefaultAsync(m => m.PID == id);
-            if (people == null)
+            int _decpid = Convert.ToInt32(_dbPro.Unprotect(id));
+            var _Pr = await _dbs._Peoples.FirstOrDefaultAsync(m => m.PID == _decpid);
+           // var people = await _dbs._Peoples.FirstOrDefaultAsync(m => m.PID == id);
+            if (_Pr == null)
             {
-                return NotFound();
+                Response.StatusCode = 404;
+                return View("InfoNotFound", _decpid);
             }
 
-            return View(people);
+            return View(_Pr);
         }
 
         // POST: People/Delete/5

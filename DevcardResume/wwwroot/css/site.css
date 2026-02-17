@@ -1,31 +1,41 @@
-html {
-  font-size: 14px;
+/*body {
+    background: linear-gradient(45deg, #e91e63, #9c27b0);*/ /* Pink to Purple gradient */
+    /*min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}*/
+
+.table-container {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 90%;
+    max-width: 1000px;
 }
 
+.table thead th {
+    background-color: #fff;
+    border-bottom: 2px solid #f2f2f2;
+    color: #666;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 20px 25px;
+}
+
+.table tbody td {
+    padding: 20px 25px;
+    color: #888;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #f2f2f2;
+}
+/* Hover effect from the template */
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
-}
-
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
-}
-
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+    .table thead th, .table tbody td {
+        padding: 20px 25px; /* Original padding for desktop */
+    }
 }
